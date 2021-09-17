@@ -1,5 +1,5 @@
 # Spotifacts
-Spotify statistic mobile app project for UVA CS4270. Made by Rudy Schneider, Lily Gomez, and Fiji Marcelin. 
+Spotify statistic mobile app project for UVA CS4270. Made by Rudy Schneider, Lili Gomez, and Fiji Marcelin. 
 
 ## Starting Up
 ```bash
