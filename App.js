@@ -1,41 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import AppLogin from '../spotifacts/components/Screens/AppLogin/AppLogin';
+import { StyleSheet, Text, View, Alert } from 'react-native';
+import * as AuthSession from 'expo-auth-session';
 import { makeRedirectUri, useAuthRequest } from 'expo-auth-session';
 import { Button } from 'react-native';
-import { useEffect } from "react";
 
-//Endpoint
+// Endpoint
 const discovery = {
   authorizationEndpoint: 'https://accounts.spotify.com/authorize',
   tokenEndpoint: 'https://accounts.spotify.com/api/token',
 };
 
 export default function App() {
+  console.log(AuthSession.getRedirectUrl())
+
   const [request, response, promptAsync] = useAuthRequest(
     {
-      clientId: '184c8af0f1e440d4a2682ff3f6ec63cc',
+      clientId: '84c06d922944468083b6f50856f1f728',
       scopes: ['user-read-email', 'playlist-modify-public'],
       // In order to follow the "Authorization Code Flow" to fetch token after authorizationEndpoint
       // this must be set to false
       usePKCE: false,
-      // For usage in managed apps using the proxy
-      redirectUri: makeRedirectUri({
-        // For usage in bare and standalone
-        native: 'exp://localhost:19000/',
-      }),
+      redirectUri: "exp://localhost:19000/--/"
     },
     discovery
   );
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (response?.type === 'success') {
+      Alert.alert("Logged in!");
       const { code } = response.params;
+      console.log(code)
       }
   }, [response]);
 
   return (
+    <View style={styles.container}>
     <Button
       disabled={!request}
       title="Login"
@@ -43,13 +43,13 @@ export default function App() {
         promptAsync();
         }}
     />
+    </View>
   );
-}
+      }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
